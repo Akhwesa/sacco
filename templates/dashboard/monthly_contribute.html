@@ -1,0 +1,215 @@
+{% extends 'partials/base.html'%}
+{% block title%}Monthly Contribution Page{% endblock%}
+
+{% block content %}
+
+<div class="content-wrapper col-lg-9.9 "  >           
+    
+<!-- Content Header (Page header) -->
+<section class="content-header"><h4>Monthly Contribution<small><a href="#" target="_blank"> Help</a></small></h4>
+</section>
+
+<!-- Main content -->
+<section class="content">
+<div class="row">
+<div class="col-xs-6">
+    <div class="pull-left">
+        <div id="export_button">
+        <div class="dt-buttons btn-group"><button class="btn btn-default buttons-collection" tabindex="0" aria-controls="view-borrowers" type="button" aria-haspopup="true" aria-expanded="false"><span>Export Data for this page</span></button> </div></div>
+    </div>
+</div>
+</div>              
+<div class="box box-info">
+<div class="row" style="margin-right:0.2%;margin-left:0.2%;margin-top: 1%;">
+<div class="col-sm-12 table-responsive">
+    <div id="view-borrowers_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="pull-left col-sm-3">
+            <div id="view-borrowers_filter" class="dataTables_filter">
+                <label>
+                    <input type="search" class="form-control input-sm" placeholder="Search Contributor" aria-controls="view-borrowers">
+                </label>
+            </div>
+        </div>
+        <div id="view-borrowers_processing" class="dataTables_processing panel panel-default" style="display: none;"> Processing..</div>
+        <div class="pull-right col-sm-9">
+            <div class="dataTables_length" id="view-borrowers_length">
+                <form method="POST" >
+                    {% csrf_token %}
+                <label > Showing <i class="fa fa-calendar" style="margin-right: 5px;margin-left: 5px;"></i>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active">
+                          <input type="radio" name="options" id="option1" autocomplete="off" checked data-option="1" value="1"
+                          onclick="this.form.submit()" > This Month
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" name="options" id="option2" autocomplete="off" data-option="2" value="2" 
+                          onclick="this.form.submit()"> Last Month
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" name="options" id="option3" autocomplete="off" data-option="3" value="3"
+                          onclick="this.form.submit()"> Past Two Month
+                        </label>
+                      </div>
+                </label>
+            </form>
+                </div>
+            </div>
+    <table id="view-borrowers" class="table table-condensed table-hover dataTable" style="width: 100%; white-space: nowrap;" role="grid" aria-describedby="view-borrowers_info">
+            <thead>
+            <tr style="background-color: #D1F9FF" role="row">
+                <th>
+                        View
+                    </th>
+                    <th>
+                        Full Name
+                    </th>
+                    <th >
+                        Work Status
+                    </th>
+                    <th >
+                        National ID:
+                    </th>
+                    <th >
+                        Mobile
+                    </th><th>
+                        Savings Amount:
+                    </th>
+                    
+                    <th>
+                        Insured Amount:
+                    </th><th>
+                        Total Contribution:
+                    </th><th>
+                        Action
+                    </th></tr>
+       </thead>
+{% if contributors %}      
+       <tfoot class="bg-gray">
+            <tr>
+                <th  rowspan="1" colspan="1">
+                </th>
+                <th  rowspan="1" colspan="1">Totals
+                </th>
+                <th  rowspan="1" colspan="1">
+                </th>
+                <th  rowspan="1" colspan="1">
+                </th>
+                <th  rowspan="1" colspan="1">
+                </th>
+                <th   rowspan="1" colspan="1">{{saving}}
+                </th>
+                <th   rowspan="1" colspan="1">{{insurance}}
+                </th>
+                <th  rowspan="1" colspan="1">{{total_mcp}}
+                </th>
+                <th  rowspan="1" colspan="1">
+                </th>
+            </tr>
+        </tfoot>
+    <tbody>
+        {% for item in contributors %}
+        <tr role="row" class="odd">
+            <td>
+                <div class="btn-group-horizontal">
+                <a type="button" class="btn-xs bg-olive margin-right" href="#">Loans</a><br>
+                <a type="button" class="btn-xs bg-blue" href="{% url 'dashboard-saving' item.pk %}">Savings</a>
+                </div>
+            </td>
+            <td class="sorting_1">
+                <b>{{item.fullName}}</b>
+            </td>
+            <td>
+                {{item.wkstatus}}
+            </td>
+            <td>
+                {{item.N_id}}
+
+            </td>
+            <td>
+                {{item.PhoneNo}}
+            </td>
+            <td>
+              {{item.savings}}
+            </td>
+            <td>
+                {{item.insured}}
+            </td>
+            <td>
+                {{item.total_mb_mcp}}
+            </td>
+            <td>
+                <a class="btn btn-info btn-sm" href="{% url 'dashboard-monthly-receipt' item.pk %}"><span class="glyphicon glyphicon-sunglasses"></span> Payments</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+{% else %}  
+        <tbody>
+            <p> No available Contributio Payments received...</p>
+            <P> To add Payments Manually <b>Go to<a href=""><i class="fa-regular fa-money-check-pen"></i>Here</a></b></P>
+        </tbody>
+{% endif %}
+      </table>
+    <div class="dataTables_info" id="view-borrowers_info" role="status" aria-live="polite">Showing 1 to 1 of 1 entries</div>
+    <div class="dataTables_paginate paging_simple_numbers" id="view-borrowers_paginate">
+        <ul class="pagination">
+            <li class="paginate_button previous disabled" id="view-borrowers_previous">
+                <a href="#" aria-controls="view-borrowers" data-dt-idx="0" tabindex="0">Previous</a>
+            </li>
+            <li class="paginate_button active">
+                <a href="#" aria-controls="view-borrowers" data-dt-idx="1" tabindex="0">1</a>
+            </li>
+            <li class="paginate_button next disabled" id="view-borrowers_next">
+                <a href="#" aria-controls="view-borrowers" data-dt-idx="2" tabindex="0">Next</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!--
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var options = document.getElementsByName('options');
+    
+        options.forEach(function(option) {
+            option.addEventListener('click', function() {
+                var current_month = option.getAttribute('data-option');
+                var current_year = new Date().getFullYear();
+                updateCurrentMonth(current_month, current_year);
+            });
+        });
+    
+        function updateCurrentMonth(current_month, current_year) {
+            axios.post('/update_current_month/', {
+                current_month: current_month,
+                current_year: current_year
+            })
+            .then(function(response) {
+                if (response.data.success) {
+                    // Get the updated current_month and current_year from the response
+                    var updated_current_month = response.data.current_month;
+                    var updated_current_year = response.data.current_year;
+    
+                    // Success: Refresh the page or update the necessary elements
+                    location.reload();  // Refresh the page to reflect the changes
+                } else {
+                    // Error: Handle the error case
+                    console.error('Error updating current month');
+                }
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+        }
+    });
+    
+    </script>
+-->
+    </section>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,206 @@
+{% extends 'partials/base.html'%}
+{% block title%}Add Member Page{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="content-wrapper col-lg-8 " style="min-height: 946px; padding: 10px;" >         
+    <section class="content">
+    <div class="border bg-white p-3">
+        <h2>Add New Member</h2>
+        <hr>
+        <div class="box box-info">
+        <form id="form" class="form-horizontal" method="POST" enctype="multipart/form-data" name="form">
+            <div class="box-body">
+                <div class="panel panel-default">
+                    <div class="panel-body bg-gray text-bold">
+                    Required fields: 
+                    </div>
+                </div>
+            {% csrf_token %}
+            <div class="form-group {% if add_Borrower_form.firstName.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.firstName.id_for_label }}">{{ add_Borrower_form.firstName.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.firstName }}
+                    {% if add_Borrower_form.firstName.errors %}
+                        <span class="help-block">{{ add_Borrower_form.firstName.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group {% if add_Borrower_form.secondName.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.secondName.id_for_label }}">{{ add_Borrower_form.secondName.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.secondName }}
+                    {% if add_Borrower_form.secondName.errors %}
+                        <span class="help-block">{{ add_Borrower_form.secondName.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group {% if add_Borrower_form.te_id.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.te_id.id_for_label }}">{{ add_Borrower_form.te_id.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.te_id }}
+                    {% if add_Borrower_form.te_id.errors %}
+                        <span class="help-block">{{ add_Borrower_form.te_id.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body bg-gray text-bold">Other Required Fields:
+                </div>
+            </div>
+            <div class="form-group {% if add_Borrower_form.gender.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.gender.id_for_label }}">{{ add_Borrower_form.gender.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.gender }}
+                    {% if add_Borrower_form.gender.errors %}
+                        <span class="help-block">{{ add_Borrower_form.gender.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group {% if add_Borrower_form.title.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.title.id_for_label }}">{{ add_Borrower_form.title.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.title }}
+                    {% if add_Borrower_form.title.errors %}
+                        <span class="help-block">{{ add_Borrower_form.title.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group {% if add_Borrower_form.phone.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.phone.id_for_label }}">{{ add_Borrower_form.phone.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.phone }}
+                    {% if add_Borrower_form.phone.errors %}
+                        <span class="help-block">{{ add_Borrower_form.phone.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group {% if add_Borrower_form.mail.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.mail.id_for_label }}">{{ add_Borrower_form.mail.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.mail }}
+                    {% if add_Borrower_form.mail.errors %}
+                        <span class="help-block">{{ add_Borrower_form.mail.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="{{ add_Borrower_form.dob.id_for_label }}">{{ add_Borrower_form.dob.label }}</label>
+                <div class="col-sm-4">
+                    <input class="form-control date" type="text" id="{{ add_Borrower_form.dob.id_for_label }}" name="{{ add_Borrower_form.dob.html_name }}"
+                           value="{{ add_Borrower_form.dob.value|default_if_none:'' }}" data-date-format="yyyy-mm-dd" placeholder="dd/mm/yyyy">
+                    {% if add_Borrower_form.dob.errors %}
+                        <span class="help-block">{{ add_Borrower_form.dob.errors }}</span>
+                    {% endif %}
+                </div>
+            </div> 
+            </div>
+            <div class="form-group {% if add_Borrower_form.address.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.address.id_for_label }}">{{ add_Borrower_form.address.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.address }}
+                    {% if add_Borrower_form.address.errors %}
+                        <span class="help-block">{{ add_Borrower_form.address.errors }}</span>
+                    {% endif %}
+                </div>
+            </div><div class="form-group {% if add_Borrower_form.city.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.city.id_for_label }}">{{ add_Borrower_form.city.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.city }}
+                    {% if add_Borrower_form.city.errors %}
+                        <span class="help-block">{{ add_Borrower_form.city.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group {% if add_Borrower_form.province.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.province.id_for_label }}">{{ add_Borrower_form.province.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.province }}
+                    {% if add_Borrower_form.province.errors %}
+                        <span class="help-block">{{ add_Borrower_form.province.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="form-group {% if add_Borrower_form.workStatus.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.workStatus.id_for_label }}">{{ add_Borrower_form.workStatus.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.workStatus }}
+                    {% if add_Borrower_form.workStatus.errors %}
+                        <span class="help-block">{{ add_Borrower_form.workStatus.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="form-group {% if add_Borrower_form.desc.errors %}has-error{% endif %}">
+                <label class="control-label col-lg-4" for="{{ add_Borrower_form.desc.id_for_label }}">{{ add_Borrower_form.desc.label }}</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control"  id="{{ add_Borrower_form.desc.id_for_label }}" name="{{ add_Borrower_form.desc.html_name }}"
+                    value="{{ add_Borrower_form.desc.value|default_if_none:'' }}"></textarea>
+                   
+                    {% if add_Borrower_form.desc.errors %}
+                        <span class="help-block">{{ add_Borrower_form.desc.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+           
+            <div class="form-group {% if add_Borrower_form.officer.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ add_Borrower_form.officer.id_for_label }}">{{ add_Borrower_form.officer.label }}</label>
+                <div class="col-sm-6">
+                    {{ add_Borrower_form.officer }}
+                    {% if add_Borrower_form.officer.errors %}
+                        <span class="help-block">{{ add_Borrower_form.officer.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="box-footer">
+            
+            <a class="btn btn-secondary"  href="{% url 'dashboard-index'%}">Cancel</a>
+            <input class="btn btn-success pull-right" type="submit" value="Add New Member">
+            </div>
+        </form>
+        </div>
+</div>  
+</section>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.date').datepicker({
+                autoclose: true,
+                todayHighlight: true
+            });
+        });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var dragDropArea = document.getElementById('drag-drop-area');
+
+        dragDropArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('drag-over');
+        });
+
+        dragDropArea.addEventListener('dragleave', function() {
+            this.classList.remove('drag-over');
+        });
+
+        dragDropArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+
+            var files = e.dataTransfer.files;
+            var fileList = '';
+
+            for (var i = 0; i < files.length; i++) {
+                fileList += files[i].name + ', ';
+            }
+
+            fileList = fileList.slice(0, -2);
+            this.querySelector('.drag-drop-info').textContent = fileList;
+        });
+    });
+
+
+    </script>
+
+{% endblock %}

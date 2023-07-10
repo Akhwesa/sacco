@@ -1,0 +1,211 @@
+{% extends 'partials/base.html'%}
+{% block title%}Home Page{% endblock%}
+
+{% block content %}
+<div class="container"> 
+  <section class="content-header">
+    <h1>Home Branch</h1>
+  </section>
+  <section class="content">
+    
+    <div class="card col-md-4" style="margin-right: 5px; " >
+        <div class="card-header">
+          Contributions
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Total Contributions: {{contribution}} </li>
+          <li class="list-group-item">Total Savings: {{Savings}}</li>
+          <li class="list-group-item">Total Insured Amount: {{insured}}</li>
+        </ul>
+        <a href="{% url 'dashboard-contribute'%}" class="btn btn-primary">View All Savings Accounts <span class="glyphicon glyphicon-menu-right"></span></a>
+      </div>
+      <div class="card col-md-4" style="margin-left: 5px;" >
+        <div class="card-header">
+          Monthly Contributions for <span id='month-year'></span>.
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Monthly Contributions: {{t_mcp}} </li>
+          <li class="list-group-item">Monthly Savings: {{mcpsavings}}</li>
+          <li class="list-group-item">Monthly Insured Amount: {{mcpInsuarance}}</li>
+        </ul>
+        <a href="{% url 'dashboard-monthly-contribute' current_month=current_month %}" class="btn btn-primary">View Monthly savings Per Members <span class="glyphicon glyphicon-menu-right"></span></a>
+        </div>
+        <div class="card col-md-3 pull-right" >
+          <div class="card-header">
+            Contributing Members
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Member Count: <a href="{% url 'user-view-member' %}" class="badge badge-primary">{{memberCount}}</a> </li>
+            <li class="list-group-item">Contributing Members:<a href="{% url 'dashboard-contribute'%}" class="badge badge-primary">{{contributeCount}}</a></li>
+            <li class="list-group-item">Loans Applicants No.:<a href="{% url 'dashboard-applicants'%}" class="badge badge-primary"> {{apply}}</a> </li>
+          </ul>
+          
+          </div>
+
+          <div class="card col-md-4" style="margin-right: 5px; margin-top: 10px;" >
+            <div class="card-header">
+              Loans <a href="{% url 'dashboard-view-loan'%}"  class="badge badge-primary pull-right">{{loans_count}}</a>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Loans Approved: {{issuedLoansCount}} </li>
+              <li class="list-group-item">Disbursed Amount : {{disburse_sum}}</li>
+              <li class="list-group-item">Cleared Loans: {{closedLoansCount}}</li>
+            </ul>
+            <a href="{% url 'dashboard-view-loan'%}" class="btn btn-primary">All Loans <span class="glyphicon glyphicon-menu-right"></span></a>
+          </div>
+          <div class="card col-md-4" style="margin-left: 5px;margin-top: 10px;" >
+            <div class="card-header">
+              Loans for <span id='month-year1'></span>.
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Loans Approved: {{montlhyloanIssuedCount}} </li>
+              <li class="list-group-item">Disbursed Amount: {{monthly_disburse_sum}}</li>
+              <li class="list-group-item">Cleared Loans: {{montlhyloanClosedCount}}</li>
+            </ul>
+            <a href="{% url 'dashboard-monthly-loan' %}" class="btn btn-primary"> Loans for this Month <span class="glyphicon glyphicon-menu-right"></span></a>
+            </div>
+            <div class="card col-md-3 pull-right" style="margin-top: 10px;" >
+              <div class="card-header">
+                Members Loans
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Total Interest:{{t_interest_am}} </li>
+                <li class="list-group-item">Total Processing Fees: {{t_P_fee_am}}</li>
+                <li class="list-group-item">Due Loan Amount:0.00</li>
+                </ul>
+                
+              </div>             
+                
+                <div class="card col-md-6 " style="margin-top: 10px;">
+                <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><b>All Payments Percentage %  (All Time)</b></h3>
+                    
+                </div>
+                <div class="box-body">
+                    <p>Percentage of the <b>Claimed , Unclaimed, Loans , and Contributions Payments collected</b> until today out of <b> All Payments</b> until today</p>
+                    <div class="progress-group">
+                        <span class="progress-text">Claimed Payments</span>
+                        <span class="progress-number"><b>{{total_claimed}}</b>/100%</span>
+                
+                        <div class="progress sm">
+                          <div class="progress-bar progress-bar-striped bg-aqua" style="width: {{tcp}}%">{{tcp}}%</div>
+                        </div>
+                    </div>
+                    <!-- /.progress-group -->
+                    <div class="progress-group">
+                        <span class="progress-text">Unclaimed Payments</span>
+                        <span class="progress-number"><b>{{total_unclaimed}}</b>/100%</span>
+                
+                        <div class="progress sm">
+                            <div class="progress-bar progress-bar-striped bg-yellow" style="width: {{tucp}}%">{{tucp}}%</div>
+                        </div>
+                    </div>
+                    <!-- /.progress-group -->
+                    <div class="progress-group">
+                        <span class="progress-text">Loan Payments</span>
+                        <span class="progress-number"><b>{{total_loansPayment}}</b>/100%</span>
+                
+                        <div class="progress sm">
+                            <div class="progress-bar progress-bar-striped bg-green" style="width: {{tlpp}}%">{{tlpp}}%</div>
+                        </div>
+                    </div>
+                    <!-- /.progress-group -->
+                    <div class="progress-group">
+                        <span class="progress-text">Savings</span>
+                        <span class="progress-number"><b>{{total_savingsPayment}}</b>/100%</span>
+                
+                        <div class="progress sm">
+                            <div class="progress-bar progress-bar-striped bg-secondary" style="width: {{tspp}}%">{{tspp}}%</div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div> 
+      
+                <div class="card col-md-5 pull-right" style="margin-top: 10px;">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h4 class="text-bold">Average Loan Tenure (All Time)</h4>
+                    <p>Average number of days for loans to be fully paid</p>
+                    <h3>N/A</h3>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                </div>
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h4 class="text-bold">Average Loan Disbursement Size (All Time)</h4>
+                    <h3>0.00</h3>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                </div>
+                </div>              
+                
+                
+                  <div class="col-md-6" style="margin-top: 10px;">
+                  <!-- small box -->
+                  <div class="small-box bg-yellow">
+                    <div class="inner">
+                    <h4 class="text-bold">Total Loan Amount  (All Time)</h4>
+                    
+                    <p> Total Principal Amount for all Loans that are <u>disbursed</u></p>
+                    <h3>0.00</h3>
+                    </div>
+                    <div class="icon">
+                    <i class="fa fa-line-chart"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5" style="margin-top: 10px;">    
+                  <div class="small-box bg-green">
+                  <div class="inner">
+                  <h4 class="text-bold">Rate of Recovery (Open Loans)</h4>
+                  
+                  <p>Percentage of the due amount that is paid for <u>open loans</u> until today</p>
+                  <h3>0%</h3>
+                  </div>
+                  <div class="icon">
+                  <i class="fa fa-line-chart"></i>
+                  </div>
+                  </div>
+                  </div>
+                  
+                  <!-- <div class="col-md-6" style="margin-top: 10px;">
+                  
+                
+                <div class="small-box bg-aqua">
+                  <div class="inner">
+                      <h4 class="text-bold">Shares (All Time)</h4>
+                      <p>Total Shares Amount from all Share-Holders</p>
+                      <h4>{{shares_amount}}</h4>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="col-md-5" style="margin-top: 10px;">  
+                    <div class="small-box bg-aqua">
+                      <div class="inner">
+                          <h4 class="text-bold">Share Holders (All Time)</h4>
+                          <p>Number of all Share-Holders</p>
+                          <h4>{{share_count}}</h4>
+                      </div>
+                      </div>  
+                  
+                  </div> -->
+                  
+                
+            </section>
+</div>
+
+<script>
+  const currentDate = new Date();
+  const monthYear = `${currentDate.toLocaleString('default', { month: 'long' })} ${currentDate.getFullYear()}`;
+  document.getElementById('month-year').textContent = monthYear;
+  document.getElementById('month-year1').textContent = monthYear;
+</script>
+{% endblock %}

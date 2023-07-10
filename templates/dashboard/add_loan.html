@@ -1,0 +1,183 @@
+{% extends 'partials/base.html'%}
+{% block title%}Loan Application Page{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="content-wrapper col-lg-8 " style="min-height: 1000px;" >         
+    <div class="border bg-white p-3">
+        <h2>Loan Application Form </h2><br>
+        <p>For {{FullName}}</p>
+        <hr>
+        <div class="box box-info">
+        <form id="form" class="form-horizontal" method="POST" enctype="multipart/form-data" name="form">
+            {% csrf_token %}
+            <div class="box-body">
+            
+            <div class="form-group {% if addLoan.loanProduct.errors %}has-error{% endif %}">
+                <label class="control-label col-sm-4 text-pull-left" for="{{ addLoan.loanProduct.id_for_label }}">{{ addLoan.loanProduct.label }}</label>
+                <div class="col-sm-6">
+                    {{ addLoan.loanProduct }}
+                    {% if addLoan.loanProduct.errors %}
+                        <span class="help-block">{{ addLoan.loanProduct.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <hr>
+            <div class="panel panel-default">
+                <div class="panel-body bg-gray text-bold">
+                    Loan Terms (required fields): 
+                </div>
+            </div>
+            <h5 class="text-red text-bold">Principal:</h5>
+            <div class="form-group {% if addLoan.disbursedby.errors %}has-error{% endif %}">
+                <label class="control-label col-lg-4 text-pull-left" for="{{ addLoan.disbursedby.id_for_label }}">{{ addLoan.disbursedby.label }}</label>
+                <div class="col-lg-6">
+                    {{ addLoan.disbursedby }}
+                    {% if addLoan.disbursedby.errors %}
+                        <span class="help-block">{{ addLoan.disbursedby.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="{{ addLoan.principal.id_for_label }}">{{ addLoan.principal.label }}</label>
+                <div class="col-sm-4">
+                    <input class="form-control" placeholder="{{ loan_limit }}" type="number" step="0.01" min="0" id="{{ addLoan.principal.id_for_label }}" name="{{ addLoan.principal.html_name }}"
+                           value="{{ addLoan.principal.value|default_if_none:'' }}">
+                    {% if addLoan.principal.errors %}
+                        <span class="help-block">{{ addLoan.principal.errors }}</span>
+                    {% endif %}
+                </div>
+                <p>Principal should be less than or equal to loan limit of <strong>{{loan_limit}}</strong></p>
+            </div>
+            
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="{{ addLoan.release_date.id_for_label }}">{{ addLoan.release_date.label }}</label>
+                <div class="col-sm-4">
+                    <input class="form-control date" type="text" id="{{ addLoan.release_date.id_for_label }}" name="{{ addLoan.release_date.html_name }}"
+                           value="{{ addLoan.release_date.value|default_if_none:'' }}" data-date-format="yyyy-mm-dd" placeholder="dd/mm/yyyy">
+                    {% if addLoan.release_date.errors %}
+                        <span class="help-block">{{ addLoan.release_date.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>                      
+            <hr>
+            <h5 class="text-red text-bold">Interest:</h5>
+            <div class="form-group {% if addLoan.interestRate.errors %}has-error{% endif %}">
+                <label class="control-label col-lg-4" for="{{ addLoan.interestRate.id_for_label }}">{{ addLoan.interestRate.label }}</label>
+                <div class="col-lg-6">
+                    {{ addLoan.interestRate }}
+                    {% if addLoan.interestRate.errors %}
+                        <span class="help-block">{{ addLoan.interestRate.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group {% if addLoan.loanInterest.errors %}has-error{% endif %}" style="margin-top: 15px;">
+                <label class="control-label col-lg-4" for="{{ addLoan.loanInterest.id_for_label }}">{{ addLoan.loanInterest.label }}</label>
+                <div class="col-lg-3" >
+                    {{ addLoan.loanInterest }}
+                    {% if addLoan.loanInterest.errors %}
+                        <span class="help-block">{{ addLoan.loanInterest.errors }}</span>
+                    {% endif %}
+                </div>
+                        <p><b><u>DO not</u> use the % (percentage) character</b></p>
+                        <div class="col-lg-2" style="white-space: nowrap;">
+                            <p style="padding-left: 85px; margin-top: 15px;">Interest Rate is Calculated in % percentage
+                            </p>
+                        </div>
+                    
+            </div>
+            
+            <hr>
+            <h5 class="text-red text-bold">Duration:</h5>
+            <div class="form-group {% if addLoan.loanDuration.errors %}has-error{% endif %}">
+                <label class="control-label col-lg-4" for="{{ addLoan.loanDuration.id_for_label }}">{{ addLoan.loanDuration.label }}</label>
+                <div class="col-lg-6">
+                    {{ addLoan.loanDuration }}
+                    {% if addLoan.loanDuration.errors %}
+                        <span class="help-block">{{ addLoan.loanDuration.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group {% if addLoan.durationPer.errors %}has-error{% endif %}">
+                <label class="control-label col-lg-4" for="{{ addLoan.durationPer.id_for_label }}">{{ addLoan.durationPer.label }}</label>
+                <div class="col-lg-6">
+                    {{ addLoan.durationPer }}
+                    {% if addLoan.durationPer.errors %}
+                        <span class="help-block">{{ addLoan.durationPer.errors }}</span>
+                    {% endif %}
+                </div><p>Leave as default (year)</p>
+            </div>
+            <hr>
+            <h5 class="text-red text-bold">Repayments:</h5>
+            
+            <div class="form-group {% if addLoan.repayment_cycle.errors %}has-error{% endif %}">
+                <label class="control-label col-lg-4" for="{{ addLoan.repayment_cycle.id_for_label }}">{{ addLoan.repayment_cycle.label }}</label>
+                <div class="col-lg-6">
+                    {{ addLoan.repayment_cycle }}
+                    {% if addLoan.repayment_cycle.errors %}
+                        <span class="help-block">{{ addLoan.repayment_cycle.errors }}</span>
+                    {% endif %}
+                </div><p>Leave as default (Monthly)</p>
+            </div>
+            <hr>
+            <div class="panel panel-default">
+                <div class="panel-body bg-gray text-bold">
+                    Loan Fees: 
+                </div>
+            </div>
+            <div class="form-group {% if addLoan.processingFee.errors %}has-error{% endif %}">
+                <label class="control-label col-lg-4" for="{{ addLoan.processingFee.id_for_label }}">{{ addLoan.processingFee.label }}</label>
+                <div class="col-lg-3">
+                    {{ addLoan.processingFee }}
+                    {% if addLoan.processingFee.errors %}
+                        <span class="help-block">{{ addLoan.processingFee.errors }}</span>
+                    {% endif %}
+                </div>
+                <p> <b><u>DO not</u> use the % (percentage) character </b></p>
+                <div class="col-lg-2" style="white-space: nowrap;">
+                    <p style="padding-left: 107px;">This fee is deductable on the Principal Loan during Processing...
+                    <br>Processing Fee will be deductated in % percentage
+                    </p>
+                </div>
+            </div>
+            
+
+            <hr>
+            <div class="panel panel-default">
+                <div class="panel-body bg-gray text-bold">
+                    Loan Status: 
+                </div>
+            </div>
+            <div class="form-group {% if addLoan.desc.errors %}has-error{% endif %}">
+                <label class="control-label col-lg-4" for="{{ addLoan.desc.id_for_label }}">{{ addLoan.desc.label }}</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control"  id="{{ addLoan.desc.id_for_label }}" name="{{ addLoan.desc.html_name }}"
+                    value="{{ addLoan.desc.value|default_if_none:'' }}"></textarea>
+                   
+                    {% if addLoan.desc.errors %}
+                        <span class="help-block">{{ addLoan.desc.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>            
+            <div class="box-footer col-lg-10">
+            <button class="btn btn-secondary " type="button" onclick="parent.location='{% url 'dashboard-index'%}'">Cancel</button>
+            <input class="btn btn-info pull-right submit-button" type="submit" value="Submit Loan For Processing">
+            </div>
+        </div>    
+        </form>
+    </div>
+</div>
+<div class="well well-sm"><small>Please note that once you Click Submit loans For Processing. A new Loan Object will be Created for <b>{{FullName}}</b>.  It does not mean that it is actually <b>due</b>. To active the <b>Loan Account</b> the <b>Loan</b> Must be disbursed, Therefore in Reports and Accounting(left menu), it will <b>not</b> be counted.</small></div>
+
+</div>
+<script>
+    $(document).ready(function() {
+        $('.date').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'partials/base.html'%}
+{% block title%}Loan Calculator{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+    <div class="container" >
+        <div class="row my-4">
+          <div class="col-md-4">
+            <h4>Calculate Loan Structures</h4>
+                <hr>
+            <form class="col-md-10" method="post" >
+              {% csrf_token %}  
+              {{ updateForm|crispy }} 
+              <input class="btn btn-success btn-block" type="submit" value="Update Loan Structure" >
+              <div><p>Update the loan structure above or accept the Terms and procced.. </p></div>
+
+            </form>
+          </div>
+            <div class="col-md-8">
+              
+              <p>Loan Amount:{{principal}}</p><a href="{% url 'save_loan' items.id %}"><button button type="button" class="btn btn-secondary btn-lg pull-right">I Accept Terms</button></a>
+              <p>Disbursed Principal Amount: {{dis_principal}}</p>
+              <p>Deductated processing fee: {{p_fee}}</p>
+              <a href="{% url 'decline_loan' items.id %}"><button button type="button" class="btn btn-danger btn-lg pull-right">I Do Not Accept Terms</button></a>
+              
+                <table class="table bg-white" style="white-space: nowrap;max-height: 1000px; overflow:scroll;">
+                  <h3>Loan Schedule</h3>
+                  <thead class="bg-secondary">
+                    <tr>
+                        <th>Month: </th>
+                        <th>Loan Balance:</th>
+                        <th>Interest: </th>
+                        <th>Principal: </th>
+                        <th>Monthly Payment </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in page_obj %}
+                        <tr>
+                            <td>{{ item.month }}</td>
+                          <td>{{ item.remaining_principal|floatformat:2 }}</td>
+                          <td>{{ item.interest|floatformat:2 }}</td>
+                          <td>{{ item.principal_payment|floatformat:2 }}</td>
+                          <td>{{ item.monthly_payment|floatformat:2 }}</td>
+                        </tr>
+                      {% endfor %}
+                      <div class="pagination">
+                        {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        {% endif %}
+                      
+                        <span class="current-page">{{ page_obj.number }}</span>
+                      
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                        {% endif %}
+                      </div>
+                </tbody>
+                </table>
+                
+            </div>
+
+        </div>
+    </div>
+
+<script>
+   function refreshPage() {
+        location.reload();
+        document.getElementById('loan-form').submit();
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+
+.searchBarResults {
+    position: absolute;
+    /*height: 500px;*/
+    z-index: 100;
+}
+
+.searchResultLine {
+    display: -webkit-inline-flex;
+    display: inline-flex; /*отображает контейнер как строчный элемент*/
+    flex-direction: row;
+}
+.searchBarNewWindow {
+    float: right;
+}
+.ps__rail-x, .ps__rail-y {
+    opacity: 1;
+    width: 10px;
+}
+.ps__thumb-y {
+    width: 10px;
+}

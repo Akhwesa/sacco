@@ -1,0 +1,64 @@
+{% extends 'partials/base.html'%}
+{% block title%}Loan Payment schedule Page{% endblock%}
+
+
+{% block content %}
+<div class="content-wrapper col-lg-8 " style="min-height: 946px;"> 
+    <div class="container" >
+        <div class="row my-4">
+          
+            <div class="col-md-8">
+              <p>Loan Number: {{loan.loanNo}}</p>
+              <p>Loan Amount:{{loan.principal}}</p><a href="{% url 'dashboard-view-loan' %}"><button button type="button" class="btn btn-secondary btn-lg pull-right">View all Loans</button></a>
+              <p>Principal Payment Amount: {{loan_account.principlePayment}}</p>
+              <p>Loan Status: {{loan.status}}</p>
+              <a href="#"><button button type="button" class="btn btn-Success btn-lg pull-right">Add Payments</button></a>
+              
+                <table class="table bg-white" style="white-space: nowrap;max-height: 1000px; overflow:scroll;">
+                  <h3>Loan Payment Schedule</h3>
+                  <thead class="bg-secondary">
+                    <tr>
+                        <th>Payment Date: </th>
+                        <th>Payment Amount:</th>
+                        <th>Interest: </th>
+                        <th>Principal: </th>
+                        <th>Status </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in page_obj %}
+                        <tr>
+                          <td>{{ item.paymentDate }}</td>
+                          <td>{{ item.MonthlyPayment}}</td>
+                          <td>{{ item.interest}}</td>
+                          <td>{{ item.principal_payment}}</td>
+                          <td>{{ item.status}}</td>
+                        </tr>
+                      {% endfor %}
+                      
+                      <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            {% if page_obj.has_previous %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+                          </li>
+                          {% endif %}
+                          <li class="page-item"><a class="current-page">{{ page_obj.number }}</a></li>
+                          {% if page_obj.has_next %}
+                          <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                          </li>
+                          {% endif %}
+                        </ul>
+                      </nav>
+                </tbody>
+                </table>
+                
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

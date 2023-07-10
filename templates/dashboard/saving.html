@@ -1,0 +1,85 @@
+{% extends 'partials/base.html'%}
+{% block title%}Individual Savings{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="container" >
+        <div class="row my-4">
+          {% if ctt %}
+            <div class="col-md-8 offset-md-1">
+              <h3>Contributions Payment Receipts For:<br> <strong>{{fullname}}</strong> </h3>
+
+              <p>Savings Amount: {{ctt.savingAmount}}</p>
+              <p>Total Insured Amount: {{ctt.insuaranceAmount}}</p>
+              <p>Total Contributions: {{ctt.contributionAmount}}</p>
+              
+              
+                <table class="table bg-white" style="white-space: nowrap;max-height: 1000px; overflow:scroll;">
+                  
+                  <thead class="bg-secondary text-white">
+                    <tr>
+                        <th>Account Reference: </th>
+                        <th>Amount Paid:</th>
+                        <th>Payment Date </th>
+                        <th>Transaction Id </th>
+                        <th>Full Name</th>
+                        <th>Invoice Name</th>
+                        <th>Business Reference </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in page_obj %}
+                        <tr>
+                          <td>{{ item.accountReference }}</td>
+                          <td>{{ item.paidAmount|floatformat:2 }}</td>
+                          <td>{{ item.paymentDate}}</td>
+                          <td>{{ item.transactionId}}</td>
+                          <td>{{ item.fullName}}</td>
+                          <td>{{ item.invoiceName}}</td>
+                          <td>{{ item.externalReference}}</td>
+                        </tr>
+                      {% endfor %}
+                      <ul class="pagination">
+                        <li class="page-item">
+                        {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        {% endif %}
+                      </li>
+                      <li class="page-item active">
+                        <span class="current-page">{{ page_obj.number }}</span>
+                      </li>
+                      <li class="page-item">
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                        {% endif %}
+                      </li>
+                      </ul>
+                </tbody>
+                </table>             
+            </div>
+          {% else %}
+          <div class="col-md-8 offset-md-1">
+            <h3>Contributions Payment Receipts For:<br> <strong>{{fullname}}</strong> </h3>
+
+            <p>Savings Amount: 0.0</p>
+            <p>Total Insured Amount: 0.0</p>
+            <p>Total Contributions: 0.0</p>
+
+            <div class="alert alert-danger" role="alert">
+              <strong>{{fullname}}</strong> has no current Savings/Contribution Account <a href="#" class="alert-link">Click Here.</a>.To add New Payment.
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+    </div>
+
+<script>
+   function refreshPage() {
+        location.reload();
+        document.getElementById('loan-form').submit();
+    }
+</script>
+
+{% endblock %}

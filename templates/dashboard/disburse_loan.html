@@ -1,0 +1,70 @@
+{% extends 'partials/base.html'%}
+{% block title%}Disburse Page{% endblock%}
+
+{% block content %}
+<div class="container" >
+    <div class="row my-6">
+        <div class="col-md-7 offset-md-3">
+            <div class="border bg-white p-3">
+                <a href="{% url 'dashboard-repaying-loan' loan.id %}"><button button type="button" class="btn btn-success btn-lg pull-right">Disburse Loan</button></a>
+               <p>Loan Number: {{loan.loanNo}}</p>
+               
+              <p>Loan Amount:{{loan.principal|floatformat:2}}</p>
+              <p>Principal Payment Amount: {{loan_account.principleAmount|floatformat:2}}</p>
+              <p>Disbursed Amount: {{disburse_Amount|floatformat:2}}</p>
+              <a href="{% url 'dashboard-approve-loan' %}"><button button type="button" class="btn btn-warning btn-lg pull-right">Go Back</button></a>
+              
+              <p>Processing Fee: {{fee}}</p> 
+              <p>Loan Status: {{loan.status}}</p>
+              
+            </div> 
+            <div class="border bg p-3">
+                  <table class="table bg-white" style="white-space: nowrap;max-height: 1000px; overflow:scroll;">
+                    <h3>Loan Payment Schedule</h3>
+                    <thead class="bg-secondary">
+                      <tr>
+                            <th>Loan No.:</th>
+                          <th>Month: </th>
+                          
+                          <th>Interest: </th>
+                          <th>Principal: </th>
+                          <th>Payment: </th>
+                          <th>Balance:</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for item in page_obj %}
+                          <tr>
+                            <td>{{ item.loanAccount.loan.loanNo }}</td>
+                            <td>{{ item.paymentDate }}</td>                            
+                            <td>{{ item.interest|floatformat:2 }}</td>
+                            <td>{{ item.principlePayment|floatformat:2 }}</td>
+                            <td>{{ item.MonthlyPayment|floatformat:2 }}</td>
+                            <td>{{ item.balance|floatformat:2 }}</td>
+                            <td>{{ item.status}}</td>
+                          </tr>
+                        {% endfor %}
+                        <ul class="pagination">
+                          <li class="page-item">
+                          {% if page_obj.has_previous %}
+                          <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                          {% endif %}
+                        </li>
+                        <li class="page-item active">
+                          <span class="current-page">{{ page_obj.number }}</span>
+                        </li>
+                        <li class="page-item">
+                          {% if page_obj.has_next %}
+                          <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                          {% endif %}
+                        </li>
+                        </ul>
+                  </tbody>
+                  </table>
+                </div>
+        </div>
+
+      </div>
+  </div>
+  {% endblock %}

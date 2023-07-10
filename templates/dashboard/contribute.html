@@ -1,0 +1,310 @@
+{% extends 'partials/base.html'%}
+{% block title%}Savings Account Page{% endblock%}
+
+{% block content %}
+<div class="content-wrapper col-lg-9.9 "  >           
+    
+<!-- Content Header (Page header) -->
+<section class="content-header"><h4>All Members Contributions<small><a href="#" target="_blank"> Help</a></small></h4>
+</section>
+
+<!-- Main content -->
+<section class="content">
+<div class="row">
+<div class="col-xs-6">
+    <div class="pull-left">
+        <div id="export_button">
+        <div class="dt-buttons btn-group"><button class="btn btn-default buttons-collection" tabindex="0" aria-controls="view-borrowers" type="button" aria-haspopup="true" aria-expanded="false"><span>Export Data for this page</span></button> </div></div>
+    </div>
+</div>
+</div>              
+<div class="box box-info">
+<div class="row" style="margin-right:0.2%;margin-left:0.2%;margin-top: 1%;">
+<div class="col-sm-12 table-responsive">
+    <div id="view-borrowers_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="pull-left col-sm-3">
+            <div id="view-borrowers_filter" class="dataTables_filter">
+                <label>
+                    <input type="search" class="form-control input-sm" placeholder="Search Contributor" aria-controls="view-borrowers">
+                </label>
+            </div>
+        </div>
+        <div id="view-borrowers_processing" class="dataTables_processing panel panel-default" style="display: none;"> Processing..</div>
+        <div class="pull-right col-sm-9">
+            <div class="dataTables_length" id="view-borrowers_length">
+                <label>Show 
+                    <select name="view-borrowers_length" aria-controls="view-borrowers" class="form-control input-sm">
+                        <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="250">250</option>
+                            <option value="500">500</option>
+                            <option value="2500">2500 (Slow)</option>
+                    </select> entries
+                </label>
+                </div>
+            </div>
+    <table id="view-borrowers" class="table table-condensed table-hover dataTable" style="width: 100%; white-space: nowrap;" role="grid" aria-describedby="view-borrowers_info">
+            <thead>
+            <tr style="background-color: #D1F9FF" role="row">
+                <th>
+                        View
+                    </th>
+                    <th>
+                        Full Name
+                    </th>
+                    <th >
+                        Work Status
+                    </th>
+                    <th >
+                        National ID:
+                    </th>
+                    <th >
+                        Mobile
+                    </th><th>
+                        Savings Amount:
+                    </th>
+                    
+                    <th>
+                        Insured Amount:
+                    </th><th>
+                        Total Contribution:
+                    </th></tr>
+       </thead>
+        
+       <tfoot class="bg-gray">
+            <tr>
+                <th  rowspan="1" colspan="1">
+                </th>
+                <th  rowspan="1" colspan="1">Totals
+                </th>
+                <th  rowspan="1" colspan="1">
+                </th>
+                <th  rowspan="1" colspan="1">
+                </th>
+                <th  rowspan="1" colspan="1">
+                </th>
+                <th   rowspan="1" colspan="1">{{Savings}}
+                </th>
+                <th   rowspan="1" colspan="1">{{insured}}
+                </th>
+                <th  rowspan="1" colspan="1">{{contribution}}
+                </th>
+                <th  rowspan="1" colspan="1">
+                </th>
+            </tr>
+        </tfoot>
+    <tbody>
+        {% for item in ctt %}
+        <tr role="row" class="odd">
+            <td>
+                <div class="btn-group-horizontal">
+                <a type="button" class="btn-xs bg-olive margin-right" href="#">Loans</a><br>
+                <a type="button" class="btn-xs bg-blue" href="{% url 'dashboard-saving' item.contributor.id %}">Savings</a>
+                </div>
+            </td>
+            <td class="sorting_1">
+                <b>{{item.contributor.title}} {{item.contributor.firstName}} {{item.contributor.secondName}}</b>
+            </td>
+            <td>
+                {{item.contributor.workStatus}}
+            </td>
+            <td>
+                {{item.contributor.te_id}}
+
+            </td>
+            <td>
+                {{item.contributor.phone}}
+            </td>
+            <td>
+              {{item.savingAmount}}
+            </td>
+            <td>
+                {{item.insuaranceAmount}}
+            </td>
+            <td>
+                {{item.contributionAmount}}
+            </td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    <div class="dataTables_info" id="view-borrowers_info" role="status" aria-live="polite">Showing 1 to 1 of 1 entries</div>
+    <div class="dataTables_paginate paging_simple_numbers" id="view-borrowers_paginate">
+        <ul class="pagination">
+            <li class="paginate_button previous disabled" id="view-borrowers_previous">
+                <a href="#" aria-controls="view-borrowers" data-dt-idx="0" tabindex="0">Previous</a>
+            </li>
+            <li class="paginate_button active">
+                <a href="#" aria-controls="view-borrowers" data-dt-idx="1" tabindex="0">1</a>
+            </li>
+            <li class="paginate_button next disabled" id="view-borrowers_next">
+                <a href="#" aria-controls="view-borrowers" data-dt-idx="2" tabindex="0">Next</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript" language="javascript">
+
+$(document).ready(function() {
+
+var dataTable = $('#view-borrowers').DataTable( {
+"dom": '<"pull-left"f>r<"pull-right"l>tip',"order": [0, 'desc'],
+"fixedHeader": {
+    "header": true
+},
+"autoWidth": true,
+"lengthMenu": [[20, 50, 100, 250, 500, 2500], [20, 50, 100, 250, 500, "2500 (Slow)"]],
+"iDisplayLength": 20,
+"processing": true,
+"serverSide": true,
+"language": {
+    "processing": "<img src=''> Processing..",
+    "searchPlaceholder": "Search Contributor",
+    "emptyTable": "No data found. <a >Click here to Add Borrower</a>",
+    search: ""
+},
+"columnDefs": [ 
+    {
+        "targets": [0,6,7,8,9], // column or columns numbers
+        "orderable": false
+    },
+    
+    {
+         className: "text-right", 
+         "targets": [ 6,7 ] 
+    }
+],
+"ajax":{
+    url :"", // json datasource
+    type: "post",  // method  , by default get
+    error: function(){  // error handling
+        $(".view-borrowers-error").html("");
+        $("#view-borrowers").append('<tbody class="borrowers-list-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+        $("#view-borrowers-processing").css("display","none");
+        
+    }
+},
+stateSave: false,
+"footerCallback": function ( row, data, start, end, display ) {
+    var api = this.api(), data;
+    var sumVal = function (nStr, inD, outD, sep)
+    {
+        nStr += '';
+        var dpos = nStr.indexOf(inD);
+        var nStrEnd = '';
+        if (dpos != -1) {
+            nStrEnd = outD + nStr.substring(dpos + 1, nStr.length);
+            nStr = nStr.substring(0, dpos);
+        }
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(nStr)) {
+            nStr = nStr.replace(rgx, '$1' + sep + '$2');
+        }
+        return nStr + nStrEnd;
+    };
+    // Remove the formatting to get integer data for summation
+    var intVal = function ( i ) {
+        if (typeof i === 'string'){
+            i = i.replace(/[\$,]|<(\w+)\b[^<>]*>[\s\S]*?<\/\1>|<br\s*[\/]?>/g, '');
+            i = i.replace(/[\$.]|<(\w+)\b[^<>]*>[\s\S]*?<\/\1>|<br\s*[\/]?>/g, '.');
+            i = i * 1;
+            
+            return i;
+        }
+        else if (typeof i === 'number') {
+        
+            return i;
+        }
+        else {
+            return 0;
+        }
+    };
+    // Total over this page
+    pageTotal6 = api
+        .column( 6, { page: 'current'} )
+        .data()
+        .reduce( function (a, b) {
+            return intVal(a) + intVal(b);
+        }, 0 );
+
+    // Update footer
+    var ss = ''+pageTotal6.toFixed(2).toString() +'';
+    ss = sumVal(ss, ".", ".", ",");
+    $( api.column( 6 ).footer() ).html(ss +'');
+    // Total over this page
+    pageTotal7 = api
+        .column( 7, { page: 'current'} )
+        .data()
+        .reduce( function (a, b) {
+            return intVal(a) + intVal(b);
+        }, 0 );
+
+    // Update footer
+    var ss = ''+pageTotal7.toFixed(2).toString() +'';
+    ss = sumVal(ss, ".", ".", ",");
+    $( api.column( 7 ).footer() ).html(ss +'');
+}
+} );
+    
+var buttons = new $.fn.dataTable.Buttons(dataTable, {
+buttons: 
+[
+    {
+        extend: 'collection',
+        text: 'Export Data for this page',
+        buttons: [
+            {
+                text: 'Print',
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible:not(.not-export-col)'
+                },
+                footer: true
+            },
+            {
+                text: 'Copy',
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: ':visible:not(.not-export-col)'
+                },
+                footer: true
+            },
+            {
+                text: 'Excel',
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':visible:not(.not-export-col)'
+                },
+                footer: true
+            },
+            {
+                text: 'CSV',
+                extend: 'csvHtml5',
+                exportOptions: {
+                    columns: ':visible:not(.not-export-col)'
+                },
+                footer: true
+            }
+        ]
+    }
+]
+}).container().appendTo($('#export_button'));
+} );
+</script>
+
+<script>
+$( "#pre_loader" ).hide();
+
+</script>
+
+    </section>
+</div>
+
+
+
+{% endblock %}

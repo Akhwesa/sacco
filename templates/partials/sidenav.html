@@ -1,0 +1,524 @@
+
+<!-- Bootstrap row -->
+
+  
+  <!-- Sidebar -->
+  <aside id="sidebar-container" class="sidebar-expanded col-lg-2 d-none d-md-block "  > 
+      <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+      <!-- Bootstrap List Group -->
+      <ul class="list-group">
+      
+          <a href="{% url 'dashboard-index'%}" class="bg-info list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-circle-o fa-fw mr-3"></span>
+                <span class="menu-collapsed">Branch #1</span>
+            </div>
+          </a>
+          <!-- /END Separator -->
+          <!-- Menu with submenu -->
+          <a href="{% url 'dashboard-index'%}" class="bg-info list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-home fa-fw mr-3"></span>
+                <span class="menu-collapsed">Home Branch </span>
+            </div>
+          </a>
+          <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-user fa-fw mr-3"></span>
+                <span class="menu-collapsed">Members</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <!-- Submenu content -->
+          <div id='submenu2' class="collapse sidebar-submenu">
+              
+              <a href="{% url 'user-add-borrower' %}" class="list-group-item list-group-item-action bg-info text-white">
+                  <span class="menu-collapsed">Add Member
+                  </span>
+              </a>
+              <a href="{% url 'user-view-member' %}" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">View Member </span>
+            </a>
+              <a href="{% url 'user-view-borrower-group' %}" class="list-group-item list-group-item-action bg-info text-white">
+                  <span class="menu-collapsed">View Member Group</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Add Member Group</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Send SMS to all Member</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Send SMS to all Member</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Invite Member</span>
+              </a>
+          </div>
+          <a href="#submenu4" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-balance-scale mr-3"></span>
+              <span class="menu-collapsed">Loan</span>
+              <span class="submenu-icon ml-auto"></span>
+          </div>
+          </a>
+          <!-- Submenu content -->
+          <div id='submenu4' class="collapse sidebar-submenu">
+              <a href="{% url 'dashboard-view-loan'%}" class="list-group-item list-group-item-action bg-info text-white">
+                  <span class="menu-collapsed">View Loans</span>
+              </a>
+              <a href="{% url 'dashboard-applicants'%}" class="list-group-item list-group-item-action bg-info text-white">
+                  <span class="menu-collapsed">Apply Loan
+                  </span>
+              </a>
+              <a href="{% url 'user-view-borrower' %}" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">View Borrowers</span>
+            </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                  <span class="menu-collapsed">Due Loan</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Missed Repayments</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Loan In Arrears</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Defaulted Payments</span>
+              </a>             
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Loan Calculator</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Guarantors</span>
+              </a>
+              <a href="{% url 'dashboard-approve-loan' %}" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Approve Loans</span>
+              </a>
+          </div>
+          <a href="#submenu5" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-dollar mr-3"></span>
+                <span class="menu-collapsed">Repayments</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <!-- Submenu content -->
+          <div id='submenu5' class="collapse sidebar-submenu">
+              <a href="{% url 'dashboard-receipt'%}" class="list-group-item list-group-item-action bg-info text-white">
+                  <span class="menu-collapsed">View All Payments</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                  <span class="menu-collapsed">Add Bulk Repayments
+                  </span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                  <span class="menu-collapsed" style="font-size: smaller;">Upload Repayments - CSV file</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Repayments Charts</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Approve Repayments</span>
+              </a>
+          </div>
+         
+          <a href="#" class="bg-info list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-calendar fa-fw mr-3"></span>
+                <span class="menu-collapsed">Calendar</span>
+            </div>
+          </a>
+          
+          <!-- Submenu content -->
+          <div id='submenu6' class="collapse sidebar-submenu">
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                  <span class="menu-collapsed">Daily Collection Sheet</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Missed Repayment Sheet</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Past Maturity Date Loans</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Send SMS
+                </span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Send Email
+              </span>
+          </a>
+          </div>
+          <a href="#submenu7" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-bank mr-3"></span>
+                <span class="menu-collapsed">Savings</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <!-- Submenu content -->
+          <div id='submenu7' class="collapse sidebar-submenu">
+              <a href="{% url 'dashboard-contribute'%}" class="list-group-item list-group-item-action bg-info text-white">
+                  <span class="menu-collapsed">View Savings Accounts
+                  </span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Savings Charts</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Savings Report</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Savings Products Report
+                </span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Savings Fee Report
+              </span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+            <span class="menu-collapsed">Cash Safe Management
+            </span>
+          </a>
+          </div>
+          <a href="#submenu8" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-link mr-3"></span>
+                <span class="menu-collapsed" style="font-size: smaller;">Savings Transactions</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <!-- Submenu content -->
+          <div id='submenu8' class="collapse sidebar-submenu">
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">View Savings Transactions
+                </span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Add Bulk Transactions</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed" style="font-size: smaller;">Upload Transactions - CSV file</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Staff Transactions Report</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Approve Transactions
+              </span>
+          </a>
+          </div>
+          <a href="#submenu13" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-user-plus mr-3"></span>
+                <span class="menu-collapsed">Investors</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <!-- Submenu content -->
+          <div id='submenu13' class="collapse sidebar-submenu">
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">View Investors
+                </span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Add Investor</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Send SMS to All Investors</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Send Email to All Investors</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Invite Investors
+              </span>
+          </a>
+          </div>
+          <a href="#submenu14" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start" style="height: max-content;">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-briefcase mr-3"></span>
+                <span class="menu-collapsed">Investor Accounts</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <!-- Submenu content -->
+          <div id='submenu14' class="collapse sidebar-submenu">
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">View All Investor Accounts
+                </span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Add Investor Account</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">View All Loan Investments</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">View Investor Transactions</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Approve Loan Investments
+              </span>
+          </a>
+          </div>
+          <a href="#" class="bg-info list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-legal mr-3"></span>
+                <span class="menu-collapsed">E-Signatures</span>
+            </div>
+          </a>
+          <a href="#submenu9" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-paypal mr-3"></span>
+                <span class="menu-collapsed">Payroll</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <!-- Submenu content -->
+          <div id='submenu9' class="collapse sidebar-submenu">
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">View Payroll
+                </span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Add Payroll</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Payroll Report</span>
+            </a>
+          </div>
+          <a href="#submenu10" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-share mr-3"></span>
+                <span class="menu-collapsed">Expenses</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <div id='submenu10' class="collapse sidebar-submenu">
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">View Expenses
+                </span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Add Expense</span>
+            </a>
+          </div>
+          <a href="#submenu11" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-plus mr-3"></span>
+                <span class="menu-collapsed">Other Income</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <div id='submenu11' class="collapse sidebar-submenu">
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">View Other Income
+                </span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Add Other Income</span>
+            </a>
+          </div>
+          <a href="#submenu12" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-suitcase mr-3"></span>
+                <span class="menu-collapsed" style="font-size: smaller;">Asset Management</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <div id='submenu12' class="collapse sidebar-submenu">
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">View Asset Management
+                </span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Add Asset Management</span>
+            </a>
+          </div>
+          <a href="#submenu15" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-industry mr-3"></span>
+                <span class="menu-collapsed">Reports</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <!-- Submenu content -->
+          <div id='submenu15' class="collapse sidebar-submenu">
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Borrowers Reports</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Loan Report
+                </span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Loan Arrears Aging Report</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Collections Report</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Collector Report (Staff)</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Deferred Income</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Deferred Income Monthly</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Pro-Rata Collections Monthly</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Disbursement Report</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Fees Report</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Loan Officer Report</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Loan Products Report</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">MFRS Ratios</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Approve Reports</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Monthly Report</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Outstanding Report</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Portfolio At Risk (PAR)</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">At a Glance Report</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">All Entries</span>
+            </a>
+          </div>
+          <a href="#submenu16" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-book mr-3"></span>
+                <span class="menu-collapsed">Accounting</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+          </a>
+          <!-- Submenu content -->
+          <div id='submenu16' class="collapse sidebar-submenu">
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Cash flow Accumulated</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Cash Flow Monthly
+                </span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+                <span class="menu-collapsed">Profit / Loss</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Balance Sheet</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Trial Balance</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">General Ledger Summary</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Branch Equity</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Reconcile Entries</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Chart of Accounts</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Manual Journal</span>
+            </a>
+          </div>
+
+        <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-user fa-fw mr-3"></span>
+              <span class="menu-collapsed">Profile</span>
+              <span class="submenu-icon ml-auto"></span>
+          </div>
+        </a>
+        <!-- Submenu content -->
+        <div id='submenu3' class="collapse sidebar-submenu">
+          <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Settings</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action bg-info text-white">
+              <span class="menu-collapsed">Password</span>
+          </a>
+        </div>
+          
+          <!-- Separator with title -->
+          
+          <!-- /END Separator -->
+          
+          
+          <!-- Separator without title -->
+          <li class="list-group-item sidebar-separator menu-collapsed" style="background-color:#17a2b8;"></li>
+          <!-- /END Separator -->
+          <a href="#" class="bg-info list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-start align-items-center">
+                  <span class="fa fa-question fa-fw mr-3"></span>
+                  <span class="menu-collapsed">Help</span>
+              </div>
+          </a>
+          <a href="#top" data-toggle="sidebar-colapse" class="bg-info list-group-item list-group-item-action d-flex align-items-center">
+              <div class="d-flex w-100 justify-content-start align-items-center">
+                  <span id="collapse-icon" class="fa fa-hand-o-left mr-3"></span>
+                  <span id="collapse-text" class="menu-collapsed">Collapse</span>
+              </div>
+          </a>
+      </ul><!-- List Group END-->
+  </aside><!-- sidebar-container END -->
+
+  <script>
+
+// Collapse/Expand icon
+$('#collapse-icon').addClass('fa-angle-double-left'); 
+
+
+// Collapse click
+$('[data-toggle=sidebar-colapse]').click(function() {
+    SidebarCollapse();
+    
+});
+
+function SidebarCollapse () {
+    $('.menu-collapsed').toggleClass('d-none');
+    $('.sidebar-submenu').toggleClass('d-none');
+    $('.submenu-icon').toggleClass('d-none');
+    //$('#').toggleClass('d-none')
+    $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
+    
+    // Treating d-flex/d-none on separators with title
+    var SeparatorTitle = $('.sidebar-separator-title');
+    if ( SeparatorTitle.hasClass('d-flex') ) {
+        SeparatorTitle.removeClass('d-flex');
+    } else {
+        SeparatorTitle.addClass('d-flex');
+    }
+    
+    // Collapse/Expand icon
+    $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
+}
+
+
+
+
+  </script>

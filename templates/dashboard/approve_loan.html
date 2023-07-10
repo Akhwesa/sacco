@@ -1,0 +1,74 @@
+{% extends 'partials/base.html'%}
+{% block title%}Approve Loans{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--Table-->
+{% if processLoan %}
+<div class="container" >
+    <h3 style="text-align: justify;"> Loan Approvals</h3>
+    <hr>
+    <div class="row my-4">
+        <div class="col-md-8">
+            <p>If you choose to approve a Loan, A Loan Payment Schedule will be Initialized according to the Loan Terms</p>
+            <p>If you wish to review the Loan terms head back using edit Loan</p>
+            <p>If you Decline a Loan, the Loan Item will be <strong>Completely Deleted</strong>.</p>
+            <table class="table bg-white" style="white-space: nowrap;font-size: smaller;">
+              <thead class="bg-secondary text-white">
+                <tr>
+                    <th>Loan No.</th>
+                    <th>Member Name</th>
+                    <th>Phone Number: </th>
+                    <th>Email: </th>
+                    <th>Loan Amount: </th>
+                    <th>Fee: </th>
+                    <th>Fee Amount:</th>
+                    <th>Disbursed :</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in processLoan %}
+                    <tr>                      
+                      <td style="border-color: #96D4D4;">{{ item.loanNumber }}</td>
+                      <td style="border-color: #96D4D4;">{{ item.FullName }}</td>
+                      <td style="border-color: #96D4D4;">{{ item.PhoneNumber }}</td>
+                      <td style="border-color: #96D4D4;">{{ item.Email}}</td>
+                      <td style="border-color: #96D4D4;">{{ item.principle }}</td>
+                      <td style="border-color: #96D4D4;">{{ item.fee }} % </td>
+                      <td style="border-color: #96D4D4;">{{item.p_fee}}</td>
+                      <td style="border-color: #96D4D4;">{{ item.disbursed}}</td>
+                      <td>
+                        <a class="btn btn-secondary btn-sm" href="{% url 'process-loan' item.pk %}">Approve Loan</a>
+                      </td>
+                      <td>
+                          <a class="btn btn-info btn-sm" href="{% url 'dashboard-loan-shedule' item.pk %}">Edit</a>
+                      </td>
+                      <td>
+                          <a class="btn btn-danger btn-sm" href="{% url 'dashboard-delete-loan' item.pk %}">Decline Loan</a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+  
+  </div>
+  <!--End Table-->
+
+{% else %}
+
+  <div class="container" >
+    <div class="row my-4">
+        <div class="col-md-8">
+            <div class="border bg-white p-3">
+                <p> No Approvals Currently  Available.</p>
+                <p>To Approve Loans, A Member <strong>MUST</strong> apply/submit and accept terms of a Loan. </p>
+                <p>To Apply For a New Loan <a href="{% url 'dashboard-applicants' %}"> Click</a></p>
+            </div>
+        </div>
+      </div>
+  </div>
+{% endif %}
+
+{% endblock %}

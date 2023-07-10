@@ -1,0 +1,63 @@
+{% extends 'partials/base.html'%}
+{% block title%}Claimers Page{% endblock%}
+
+
+{% block content %}
+<div class="container" >
+    
+    <h3>Choose Claimer</h3>
+    <hr>
+    {% if member %}
+    <div class="row my-4">
+        <div class="col-md-8">
+            <table class="table bg-white" style="white-space: nowrap;">
+                <thead class="bg-secondary">
+                  <tr>
+                      <th>Member Name</th>
+                      <th>National ID: </th>
+                      <th>Phone No.: </th>
+                      <th>Email </th>
+                      <th>Add As</th>
+                      <th>Add As</th>
+                      <th>Add As</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in member %}
+                      <tr>
+                        <td>{{item.title}} {{ item.firstName }} {{item.secondName}}</td>
+                        <td>{{ item.te_id }}</td>
+                        <td>{{ item.phone }}</td>
+                        <td>{{ item.mail }}</td>
+                        <td>
+                          <a href="{% url 'save_claim' pk=cl.id pk1=item.id type='shares' %}" class="btn btn-info btn-sm">Shares</button>
+                      </td>
+                      <td>
+                        <a href="{% url 'save_claim' pk=cl.id pk1=item.id type='loan' %}" class="btn btn-success btn-sm">Loan Payment</button>
+                    </td>
+                    <td>
+                        <a href="{% url 'save_claim' pk=cl.id pk1=item.id type='savings' %}" class="btn btn-secondary btn-sm">As Savings</button>
+                    </td>
+                       
+                      </tr>
+                    {% endfor %}
+              </tbody>
+              </table>
+           
+        </div>            
+    </div>
+    {% else %}
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <a class="text-decoration-none text-dark">
+                    <div class="card my-card shadow text-center p-3" style="background-color:red;">
+                        <h4>No Member Available <i class="fas fa-users"></i></h4>
+                        
+                    </div>
+                </a>
+            </div></div></div>
+    {% endif %}
+</div>
+
+{% endblock %}

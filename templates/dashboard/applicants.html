@@ -1,0 +1,68 @@
+{% extends 'partials/base.html'%}
+{% block title%}Applicants Page{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--Table-->
+{% if applicant %}
+<div class="container" >
+    <h3> Loan Applicants</h3>
+    <hr>
+    <div class="row my-4">
+        <div class="col-md-8">
+          <table class="table bg-white" style="white-space: nowrap;">
+              <thead class="bg-secondary text-white">
+                <tr>
+                    <th>Member Name</th>
+                    <th>Phone Number: </th>
+                    <th>National ID:</th>
+                    <th>Employment Status</th>
+                    <th>Email: </th>
+                    <th>Savings Amount: </th>
+                    <th>Loan Arrears: </th>
+                    <th>Loan Limit:</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in applicant %}
+                    <tr>
+                      <td>{{ item.FullName }}</td>
+                      <td>{{ item.PhoneNumber }}</td>
+                      <td>{{ item.nationID }}</td>
+                      <td>{{ item.WorkStatus}}</td>
+                      <td>{{ item.mail}}</td>
+                      <td>{{ item.savings|floatformat:2 }}</td>
+                      <td>{{ item.currentLoan|floatformat:2 }}</td>
+                      <td>{{item.loan_limit|floatformat:2}}</td>
+                      <td>
+                        {% if item.currentLoan >= 300  %}
+                        {% if item.loan_limit >= 300%}
+                        <a class="btn btn-warning btn-sm" href="{% url 'dashboard-loan-shedule' item.pk2 %}">Top-up Loan</a>
+                        {% endif %}
+                        {% elif item.loan_limit >= 300 %}                        
+                        <a class="btn btn-secondary btn-sm" href="{% url 'dashboard-add-loan' item.pk %}">Apply Loan</a>
+                        {% endif%}
+                      </td>                    
+                    </tr>
+                  {% endfor %}
+            </tbody>
+          </table>
+        </div>
+    </div>  
+  </div>
+  <!--End Table-->
+{% else %}
+  <div class="container" >
+    <div class="row my-4">
+        <div class="col-md-4">
+            <div class="border bg-white p-3">
+                <p> No Applicant Currently is Available.</p>
+                <p>An Applicant <strong>MUST</strong> be A Member with atleast minimum Contribution Amount. </p>
+                <p>To Add a New Member <a href="{% url 'user-add-borrower' %}"> Click</a></p>
+            </div>
+        </div>
+      </div>
+  </div>
+{% endif %}
+{% endblock %}
